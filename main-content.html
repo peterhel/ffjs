@@ -21,8 +21,8 @@
     <p>The file <em>main-content.html</em> contains <strong>two</strong> tags: a html element tag and a script tag. They must be written in that exact order. The script tag then needs to call the automagically accessible done() function, to tell the module
         loader that it's finished initializing.</p>
 
-        <div class="language-js highlighter-rouge">
-            <pre class="highlight">
+    <div class="language-js highlighter-rouge">
+        <pre class="highlight">
             <code>
     <span class="kd">&lt;div&gt;</span>
       <span class="nx">Content goes here.</span>
@@ -36,12 +36,14 @@
     <span class="kd">&lt;/script&gt;</span>
     </code>
     </pre>
-        </div>
+    </div>
 
 
     <p>When all modules are loaded (has called their done functions) the module loader will call a function called bootstrap, if defined, and pass in a variable called context. The context variable is also accessible from within the modules. Either use that
         to pass data, or do it globally. I don't give a fuck.</p>
 
+    <h3 class="header-level-3"><a href="#header-2"></a>You're doing too many requests asshole!</h3>
+    <p>Use server push and stop whining!</p>
 
 </section>
 
