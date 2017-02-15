@@ -3,11 +3,74 @@
 
 <head>
     <title>Fuck Frameworks</title>
-    <link href="https://pages-themes.github.io/merlot/assets/css/style.css?v=69b276c90c658a5c185f464201f966af844474d6"/>
+    <link rel="stylesheet" href="https://pages-themes.github.io/merlot/assets/css/style.css?v=69b276c90c658a5c185f464201f966af844474d6" media="screen">
+    <script>
+        const context = {};
+        const resources = [];
+
+        function render(link, element) {
+            const timeout = setTimeout(function() {
+                throw {
+                    error: 'Timeout',
+                    message: `Does ${link} call its done() function?`
+                }
+            }, 2000);
+
+            const parent = element.parentNode;
+            resources.push(link);
+            const done = () => {
+                clearTimeout(timeout);
+                resources.splice(resources.indexOf(link), 1);
+                console.log(resources)
+                if (resources.length === 0) {
+                    if (typeof(bootstrap) === 'function') {
+                        bootstrap(context);
+                    }
+                }
+            }
+
+            return fetch(link).then(res => res.text()).then(x => {
+                const container = document.createElement('div');
+                container.innerHTML = x;
+
+                const contentNode = container.childNodes[0];
+
+                parent.replaceChild(contentNode, element);
+
+                const init = new Function('done', 'context', 'element', container.childNodes[1].innerHTML);
+                init(done, context, contentNode);
+            });
+        }
+    </script>
 </head>
 
 <body>
-    <h1>Fuck Frameworks</h1>
+    <a id="forkme_banner" href="https://github.com/peterhel/ffjs">View on GitHub</a>
+    <div class="shell">
+
+        <script>
+            render('top.html', document.currentScript)
+        </script>
+        <script>
+            render('main-content.html', document.currentScript)
+        </script>
+
+        <footer>
+            <span class="ribbon-outer">
+            <span class="ribbon-inner">
+
+                <p>this project by <a href="https://github.com/pages-themes">pages-themes</a> can be found on <a href="https://github.com/pages-themes/merlot">GitHub</a></p>
+
+
+            </span>
+            <span class="left-tail"></span>
+            <span class="right-tail"></span>
+            </span>
+            <p>Generated with <a href="https://pages.github.com">GitHub Pages</a> using Merlot</p>
+            <span class="octocat"></span>
+        </footer>
+
+    </div>
 </body>
 
 </html>

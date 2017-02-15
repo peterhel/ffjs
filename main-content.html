@@ -1,0 +1,50 @@
+<section id="main_content">
+    <p>Are you tired of downloading massive minified javascripts that you have no idea what they do? With dependency injection and shit you don't even know what it means?</p>
+    <p>Do you want to write clean html/css/js for people with proper browsers but at the same time use modules to keep your code neat? Look no further!</p>
+
+    <h3 class="header-level-3"><a href="#header-1"></a>Exactly what the fuck are you talking about?</h3>
+
+    <p>This very codeblock resides in a file called main-content.html. It's included like so:</p>
+
+    <div class="language-js highlighter-rouge">
+        <pre class="highlight">
+        <code>
+<span class="kd">&lt;script&gt;</span>
+  <span class="nx">render</span><span class="p">(</span><span class="nx">'main-content.html', document.currentScript</span><span class="p">);</span>
+<span class="kd">&lt;/script&gt;</span>
+</code>
+</pre>
+    </div>
+
+    <p>The render function takes two parameters, the url to the module, a html file, and the reference to the current script block. The latter is required for the module loader to correctly replace the script block with the loaded module.</p>
+
+    <p>The file <em>main-content.html</em> contains <strong>two</strong> tags: a html element tag and a script tag. They must be written in that exact order. The script tag then needs to call the automagically accessible done() function, to tell the module
+        loader that it's finished initializing.</p>
+
+        <div class="language-js highlighter-rouge">
+            <pre class="highlight">
+            <code>
+    <span class="kd">&lt;div&gt;</span>
+      <span class="nx">Content goes here.</span>
+    <span class="kd">&lt;/div&gt;</span>
+    </code>
+    <span class="kd">&lt;script&gt;</span>
+      <span class="nx">// element, context and done are accessible through the module loader.</span>
+      <span class="nx">element.innertHTML = `Element's a reference to the codeblock above!`;</span>
+      <span class="nx">context.ihazmodules = true;</span>
+      <span class="nx">done</span><span class="p">(</span><span class="p">);</span>
+    <span class="kd">&lt;/script&gt;</span>
+    </code>
+    </pre>
+        </div>
+
+
+    <p>When all modules are loaded (has called their done functions) the module loader will call a function called bootstrap, if defined, and pass in a variable called context. The context variable is also accessible from within the modules. Either use that
+        to pass data, or do it globally. I don't give a fuck.</p>
+
+
+</section>
+
+<script>
+    done()
+</script>
