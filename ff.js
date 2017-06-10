@@ -7,7 +7,7 @@ function render(link, element) {
             error: 'Timeout',
             message: `Does ${link} call its done() function?`
         }
-    }, 2000);
+    }, document.ffTimeout || 2000);
 
     const parent = element.parentNode;
     resources.push(link);
